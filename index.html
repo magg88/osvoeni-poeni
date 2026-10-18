@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="mk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Освоени поени</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Canvas Confetti за анимации -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+    <!-- Header / Навигација -->
+    <header>
+        <h1>🍳 Освоени поени</h1>
+        <div id="user-info" class="hidden">
+            <span id="user-display-name"></span>
+            <button id="logout-btn" onclick="logout()">Одјава</button>
+        </div>
+    </header>
+
+    <!-- Секција за Најава -->
+    <section id="auth-section" class="card auth-card">
+        <h2>Најава на профил</h2>
+        <div class="form-group">
+            <label for="username-select">Избери го твоето име:</label>
+            <select id="username-select">
+                <option value="">-- Избери вработен --</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="user-role">Улога:</label>
+            <select id="user-role">
+                <option value="employee">Вработен</option>
+                <option value="admin">Одговорен / Шеф</option>
+            </select>
+        </div>
+        <button onclick="login()">Влези во апликацијата</button>
+    </section>
+
+    <!-- Главен Dashboard -->
+    <main id="dashboard-section" class="dashboard-grid hidden">
+        
+        <!-- Колона 1: Главен преглед и Ранг-Листа -->
+        <div class="dashboard-col main-col">
+            
+            <!-- Картичка за информации на вработениот -->
+            <div class="card status-card">
+                <h3>Твој статус овој месец</h3>
+                <div class="stats-grid">
+                    <div class="stat-box plus">
+                        <span class="stat-number" id="my-plus">0</span>
+                        <span class="stat-label">Позитивни (✓)</span>
+                    </div>
+                    <div class="stat-box minus">
+                        <span class="stat-number" id="my-minus">0</span>
+                        <span class="stat-label">Негативни (X)</span>
+                    </div>
+                    <div class="stat-box total">
+                        <span class="stat-number" id="my-total">0</span>
+                        <span class="stat-label">Вкупно поени</span>
+                    </div>
+                </div>
+
+                <!-- Дел за Колегијално Гласање -->
+                <div id="kolegijalno-vote-box" class="vote-box">
+                    <p>🗳️ Имаш 1 колегијален глас за овој месец!</p>
+                    <button onclick="openVoteModal()" id="vote-btn">Гласај за колега</button>
+                </div>
+
+                <!-- Инфо-картичка за Правила и Категории -->
+                <div class="rules-box">
+                    <button type="button" class="rules-toggle-btn" onclick="toggleRules()">
+                        📋 Правила и Категории за поени <span id="rules-arrow">▼</span>
+                    </button>
+                    <div id="rules-content" class="rules-content hidden">
+                        
+                        <div class="limit-info-box">
+                            📊 <strong>Правило за бодување:</strong> Максимум за еден месец е <strong>3 поени</strong> 
+                            (2 од шефот за секои 3 позитивни дела + 1 од колегијалниот глас).
+                        </div>
+
+                        <div class="rules-grid">
+                            <div class="rule-column plus-rules">
+                                <h4>✓ Како се добива ПЛУС:</h4>
+                                <ul>
+                                    <li>🔥 <strong>Брзина:</strong> Брза изработка во најголема гужва</li>
+                                    <li>🧼 <strong>Одржување на хигиена:</strong> Чиста и средена станица</li>
+                                    <li>🤝 <strong>Тимски дух:</strong> Помош на колега во кујната</li>
+                                    <li>💡 <strong>Идеја:</strong> Нов предлог за подобра организација</li>
+                                    <li>⏰ <strong>Точност:</strong> Доаѓање на време и покривање саати</li>
+                                    <li>🗳️ <strong>Колегијален глас:</strong> Избор од колегите</li>
+                                </ul>
+                            </div>
+                            <div class="rule-column minus-rules">
+                                <h4>X Како се добива МИНУС:</h4>
+                                <ul>
+                                    <li>🚬 <strong>Паузи:</strong> Долги паузи во гужва</li>
+                                    <li>⏰ <strong>Задоцнување:</strong> Доцнење на смена без најава</li>
+                                    <li>🗣️ <strong>Атмосфера:</strong> Неколегијалност и караници</li>
+                                    <li>🧹 <strong>Несредена станица:</strong> Оставиш хаос по смената</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ранг Листа / Табела -->
+            <div class="card">
+                <div class="card-header-flex">
+                    <h2>📊 Ранг-листа на вработени</h2>
+                    <button onclick="resetAllData()" id="reset-btn" class="admin-only hidden reset-btn">
+                        🔄 Ресетирај поени
+                    </button>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Вработен</th>
+                                <th>Октомври</th>
+                                <th>Ноември</th>
+                                <th>Декември</th>
+                                <th>Вкупно</th>
+                                <th id="action-header" class="admin-only hidden">Акција</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leaderboard-body">
+                            <!-- Редовите ќе се генерираат динамично -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Колона 2: Анонимни идеи и Активности -->
+        <div class="dashboard-col side-col">
+            
+            <!-- Секција за Анонимни Идеи и Предлози -->
+            <div class="card idea-card">
+                <h2>💡 Сподели анонимна идеја</h2>
+                <p class="idea-subtitle">Имаш предлог? Напиши овде – целосно анонимно е!</p>
+                
+                <div class="form-group">
+                    <label for="idea-category">Категорија:</label>
+                    <select id="idea-category">
+                        <option value="⚙️ Организација">⚙️ Организација</option>
+                        <option value="🍴 Мени и рецепти">🍴 Мени и рецепти</option>
+                        <option value="🔪 Опрема и алати">🔪 Опрема и алати</option>
+                        <option value="🧼 Хигиена и среденост">🧼 Хигиена и среденост</option>
+                        <option value="✨ Друго">✨ Друго</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="idea-text">Твојата идеја / предлог:</label>
+                    <textarea id="idea-text" rows="3" placeholder="Напиши го твојот предлог овде..."></textarea>
+                </div>
+
+                <button onclick="submitIdea()" class="btn-idea">🚀 Испрати Анонимно</button>
+
+                <!-- Листа на предлози -->
+                <div class="ideas-list-container">
+                    <h3>💡 Споделени предлози:</h3>
+                    <div id="ideas-list" class="ideas-list">
+                        <!-- Идеите ќе се рендерираат тука -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Активности / Историја -->
+            <div class="card">
+                <h2>📜 Последни активности</h2>
+                <ul id="activity-list" class="activity-list">
+                    <!-- Логови за поени -->
+                </ul>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Модал за доделување поени (Админ) -->
+    <div id="point-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closePointModal()">&times;</span>
+            <h3 id="modal-title">Додели поен</h3>
+            
+            <div class="form-group">
+                <label>Тип на поен:</label>
+                <div class="type-buttons">
+                    <button type="button" id="btn-type-plus" class="btn-type active-plus" onclick="setPointType('plus')">✓ Позитивен (+1)</button>
+                    <button type="button" id="btn-type-minus" class="btn-type" onclick="setPointType('minus')">X Негативен (-1)</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="category-select">Категорија:</label>
+                <select id="category-select">
+                    <!-- Ќе се пополни според типот -->
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="point-note">Забелешка / причина:</label>
+                <input type="text" id="point-note" placeholder="На пр. Одлична работа во гужва">
+            </div>
+
+            <button onclick="submitPoint()">Сними поен</button>
+        </div>
+    </div>
+
+    <!-- Модал за Колегијално Гласање -->
+    <div id="vote-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeVoteModal()">&times;</span>
+            <h3>Гласај за позитивен колега</h3>
+            <p>Избери го колегата што најмногу ти помогна овој месец:</p>
+            <div class="form-group">
+                <select id="vote-candidate-select">
+                    <!-- Ќе се пополни со други вработени -->
+                </select>
+            </div>
+            <button onclick="submitKolegijalenGlas()">Потврди Глас</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
