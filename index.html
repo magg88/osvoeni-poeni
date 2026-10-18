@@ -141,14 +141,14 @@
             
         <!-- Секција за Предлози, Пофалби и Поплаки -->
 <div class="card idea-card">
-    <h2>💬 Повратни Информации & Идеи</h2>
+    <h2>💬 Повратни информации & идеи</h2>
     <p class="idea-subtitle">Сподели идеја, пофалба или забелешка за подобрување на работата.</p>
     
     <div class="form-group">
         <label for="idea-type">Тип на порака:</label>
         <select id="idea-type">
             <option value="💡 Идеја / Предлог">💡 Идеја / Предлог</option>
-            <option value="👏 Пофалба за колега/тим">👏 Пофалба за колега/тим</option>
+            <option value="👏 Пофалба за колега">👏 Пофалба за колега</option>
             <option value="⚠️ Поплака / Забелешка">⚠️ Поплака / Забелешка</option>
         </select>
     </div>
@@ -156,10 +156,10 @@
     <div class="form-group">
         <label for="idea-category">Категорија:</label>
         <select id="idea-category">
-            <option value="⚙️ Организација и Процеси">⚙️ Организација и Процеси</option>
-            <option value="🍴 Мени и Рецепти">🍴 Мени и Рецепти</option>
-            <option value="🔪 Опрема и Алати">🔪 Опрема и Алати</option>
-            <option value="🧼 Хигиена и Среденост">🧼 Хигиена и Среденост</option>
+            <option value="⚙️ Организација">⚙️ Организација</option>
+            <option value="🍴 Мени и рецепти">🍴 Мени и Рецепти</option>
+            <option value="🔪 Опрема и алати">🔪 Опрема и алати</option>
+            <option value="🧼 Хигиена">🧼 Хигиена</option>
             <option value="✨ Друго">✨ Друго</option>
         </select>
     </div>
@@ -182,11 +182,11 @@
         <textarea id="idea-text" rows="3" placeholder="Напиши ја твојата порака овде..."></textarea>
     </div>
 
-    <button onclick="submitIdea()" class="btn-idea">🚀 Испрати Порака</button>
+    <button onclick="submitIdea()" class="btn-idea"> Испрати порака</button>
 
     <!-- Листа на пораки -->
     <div class="ideas-list-container">
-        <h3>💬 Споделени Пораки:</h3>
+        <h3>💬 Споделени пораки:</h3>
         <div id="ideas-list" class="ideas-list">
             <!-- Пораките ќе се рендерираат тука -->
         </div>
@@ -237,7 +237,7 @@
     <div id="vote-modal" class="modal hidden">
         <div class="modal-content">
             <span class="close-btn" onclick="closeVoteModal()">&times;</span>
-            <h3>Гласај за позитивен Колега</h3>
+            <h3>Гласај за позитивен колега</h3>
             <p>Избери го колегата што најмногу ти помогна овој месец:</p>
             <div class="form-group">
                 <select id="vote-candidate-select">
