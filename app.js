@@ -1,7 +1,7 @@
 // Листа на вработени според таблата
 const EMPLOYEES = [
-    "Марио", "Александар", "Оливера", "Дуле", "Сабрина", "Наталија", 
-    "Роме", "Филип", "Дритон", "Горан", "Кристијан", "Дана", 
+    "Марио", "Александар", "Оливера", "Дуле", "Сабрина", "Натали", 
+    "Роме", "Филип", "Дритон", "Горан", "Кристијан", "Даниела", 
     "Магдалена", "Тони", "Младен", "Никола", "Марјан", "Марко"
 ];
 
@@ -281,19 +281,50 @@ function renderActivities() {
 }
 
 // Анонимни Идеи и Предлози
+// Прикажување/криење на полето за име според изборот
+function toggleAuthorNameInput() {
+    const authorType = document.getElementById('idea-author-type').value;
+    const authorNameGroup = document.getElementById('author-name-group');
+    if (authorType === 'public') {
+        authorNameGroup.classList.remove('hidden');
+        if (state.currentUser) {
+            document.getElementById('idea-author-name').value = state.currentUser;
+        }
+    } else {
+        authorNameGroup.classList.add('hidden');
+    }
+}
+
+// Испраќање на идеја / пофалба / поплака
 function submitIdea() {
+    const type = document.getElementById('idea-type').value;
     const category = document.getElementById('idea-category').value;
+    const authorType = document.getElementById('idea-author-type').value;
     const text = document.getElementById('idea-text').value.trim();
 
     if (!text) {
-        return alert('Ве молиме внесете го вашиот предлог пред да го испратите!');
+        return alert('Ве молиме внесете ја вашата порака пред да ја испратите!');
+    }
+
+    let authorName = "🕵️ Анонимно";
+    if (authorType === 'public') {
+        const inputName = document.getElementById('idea-author-name').value.trim();
+        if (inputName) {
+            authorName = `👤 ${inputName}`;
+        } else if (state.currentUser) {
+            authorName = `👤 ${state.currentUser}`;
+        } else {
+            authorName = "👤 Вработен";
+        }
     }
 
     const today = new Date();
     const dateStr = today.toLocaleDateString('mk-MK', { day: '2-digit', month: '2-digit', year: 'numeric' });
 
     const newIdea = {
+        type: type,
         category: category,
+        author: authorName,
         text: text,
         date: dateStr
     };
@@ -302,7 +333,7 @@ function submitIdea() {
     localStorage.setItem('kujna_ideas', JSON.stringify(state.ideas));
 
     document.getElementById('idea-text').value = '';
-    alert('Вашиот предлог е успешно испратен анонимно! Ви благодариме.');
+    alert('Вашата порака е успешно испратена!');
 
     renderIdeas();
 }
@@ -313,24 +344,30 @@ function renderIdeas() {
     list.innerHTML = '';
 
     if (state.ideas.length === 0) {
-        list.innerHTML = '<p style="color: var(--text-muted); font-size: 0.9rem;">Сè уште нема споделено анонимни предлози.</p>';
+        list.innerHTML = '<p style="color: var(--text-muted); font-size: 0.9rem;">Сè уште нема споделено пораки.</p>';
         return;
     }
 
     state.ideas.slice(0, 10).forEach(idea => {
         const item = document.createElement('div');
         item.className = 'idea-item';
+        
+        const typeText = idea.type || '💡 Идеја / Предлог';
+        const authorText = idea.author || '🕵️ Анонимно';
+
         item.innerHTML = `
             <div class="idea-header">
-                <span>${idea.category}</span>
+                <span>${typeText} • ${idea.category}</span>
                 <span>${idea.date}</span>
             </div>
             <div class="idea-body">${idea.text}</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 6px; text-align: right; font-weight: 600;">
+                Од: ${authorText}
+            </div>
         `;
         list.appendChild(item);
     });
 }
-
 // Колегијално гласање
 function openVoteModal() { document.getElementById('vote-modal').classList.remove('hidden'); }
 function closeVoteModal() { document.getElementById('vote-modal').classList.add('hidden'); }

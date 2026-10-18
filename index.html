@@ -139,38 +139,59 @@
         <!-- Колона 2: Анонимни идеи и Активности -->
         <div class="dashboard-col side-col">
             
-            <!-- Секција за Анонимни Идеи и Предлози -->
-            <div class="card idea-card">
-                <h2>💡 Сподели анонимна идеја</h2>
-                <p class="idea-subtitle">Имаш предлог? Напиши овде – целосно анонимно е!</p>
-                
-                <div class="form-group">
-                    <label for="idea-category">Категорија:</label>
-                    <select id="idea-category">
-                        <option value="⚙️ Организација">⚙️ Организација</option>
-                        <option value="🍴 Мени и рецепти">🍴 Мени и Рецепти</option>
-                        <option value="🔪 Опрема и алати">🔪 Опрема и Алати</option>
-                        <option value="🧼 Хигиена и среденост">🧼 Хигиена и Среденост</option>
-                        <option value="✨ Друго">✨ Друго</option>
-                    </select>
-                </div>
+        <!-- Секција за Предлози, Пофалби и Поплаки -->
+<div class="card idea-card">
+    <h2>💬 Повратни Информации & Идеи</h2>
+    <p class="idea-subtitle">Сподели идеја, пофалба или забелешка за подобрување на работата.</p>
+    
+    <div class="form-group">
+        <label for="idea-type">Тип на порака:</label>
+        <select id="idea-type">
+            <option value="💡 Идеја / Предлог">💡 Идеја / Предлог</option>
+            <option value="👏 Пофалба за колега/тим">👏 Пофалба за колега/тим</option>
+            <option value="⚠️ Поплака / Забелешка">⚠️ Поплака / Забелешка</option>
+        </select>
+    </div>
 
-                <div class="form-group">
-                    <label for="idea-text">Твојата идеја / предлог:</label>
-                    <textarea id="idea-text" rows="3" placeholder="Напиши го твојот предлог овде..."></textarea>
-                </div>
+    <div class="form-group">
+        <label for="idea-category">Категорија:</label>
+        <select id="idea-category">
+            <option value="⚙️ Организација и Процеси">⚙️ Организација и Процеси</option>
+            <option value="🍴 Мени и Рецепти">🍴 Мени и Рецепти</option>
+            <option value="🔪 Опрема и Алати">🔪 Опрема и Алати</option>
+            <option value="🧼 Хигиена и Среденост">🧼 Хигиена и Среденост</option>
+            <option value="✨ Друго">✨ Друго</option>
+        </select>
+    </div>
 
-                <button onclick="submitIdea()" class="btn-idea">🚀 Испрати Анонимно</button>
+    <div class="form-group">
+        <label for="idea-author-type">Начин на испраќање:</label>
+        <select id="idea-author-type" onchange="toggleAuthorNameInput()">
+            <option value="anonymous">🕵️ Анонимно</option>
+            <option value="public">👤 Со мое име</option>
+        </select>
+    </div>
 
-                <!-- Листа на предлози -->
-                <div class="ideas-list-container">
-                    <h3>💡 Споделени предлози:</h3>
-                    <div id="ideas-list" class="ideas-list">
-                        <!-- Идеите ќе се рендерираат тука -->
-                    </div>
-                </div>
-            </div>
+    <div class="form-group hidden" id="author-name-group">
+        <label for="idea-author-name">Твоето име:</label>
+        <input type="text" id="idea-author-name" placeholder="Напиши го твоето име">
+    </div>
 
+    <div class="form-group">
+        <label for="idea-text">Твојата порака:</label>
+        <textarea id="idea-text" rows="3" placeholder="Напиши ја твојата порака овде..."></textarea>
+    </div>
+
+    <button onclick="submitIdea()" class="btn-idea">🚀 Испрати Порака</button>
+
+    <!-- Листа на пораки -->
+    <div class="ideas-list-container">
+        <h3>💬 Споделени Пораки:</h3>
+        <div id="ideas-list" class="ideas-list">
+            <!-- Пораките ќе се рендерираат тука -->
+        </div>
+    </div>
+</div>
             <!-- Активности / Историја -->
             <div class="card">
                 <h2>📜 Последни активности</h2>
