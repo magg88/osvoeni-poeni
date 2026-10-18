@@ -16,11 +16,12 @@ body {
     background-color: var(--bg-color);
     color: var(--text-color);
     margin: 0;
-    padding: 20px;
+    padding: 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
+    box-sizing: border-box;
 }
 
 header {
@@ -33,7 +34,7 @@ header {
     padding: 18px 25px;
     border-radius: 16px;
     box-shadow: var(--shadow);
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     border: 1px solid var(--card-border);
     box-sizing: border-box;
 }
@@ -166,6 +167,8 @@ select, input, textarea {
     outline: none;
     transition: border-color 0.2s;
     font-family: inherit;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 select:focus, input:focus, textarea:focus {
@@ -266,17 +269,20 @@ tr:hover td { background-color: rgba(255, 255, 255, 0.02); }
     justify-content: center;
     align-items: center;
     z-index: 100;
+    padding: 10px;
+    box-sizing: border-box;
 }
 
 .modal-content {
     background-color: var(--card-bg);
     padding: 25px;
     border-radius: 18px;
-    width: 90%;
+    width: 100%;
     max-width: 420px;
     position: relative;
     border: 1px solid var(--card-border);
     box-shadow: var(--shadow);
+    box-sizing: border-box;
 }
 
 .close-btn {
@@ -462,10 +468,62 @@ tr:hover td { background-color: rgba(255, 255, 255, 0.02); }
 }
 .activity-list li:last-child { border-bottom: none; }
 
-/* Респонзивно за мобилен */
+/* Респонзивен дизајн за мобилен телефон */
 @media (max-width: 850px) {
-    body { padding: 12px; }
-    .dashboard-grid { grid-template-columns: 1fr; gap: 15px; }
-    .rules-grid { grid-template-columns: 1fr; }
-    header { flex-direction: column; gap: 10px; text-align: center; }
+    body { 
+        padding: 8px; 
+    }
+
+    header {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+        padding: 12px 15px;
+    }
+
+    h1 {
+        font-size: 1.15rem;
+    }
+
+    .dashboard-grid { 
+        grid-template-columns: 1fr; 
+        gap: 12px; 
+    }
+
+    .card {
+        padding: 15px 12px;
+        border-radius: 14px;
+    }
+
+    .stats-grid { 
+        grid-template-columns: repeat(3, 1fr); 
+        gap: 6px; 
+    }
+
+    .stat-box {
+        padding: 10px 4px;
+    }
+
+    .stat-number { 
+        font-size: 1.3rem; 
+    }
+
+    .stat-label { 
+        font-size: 0.7rem; 
+    }
+
+    .rules-grid { 
+        grid-template-columns: 1fr; 
+        gap: 10px;
+    }
+
+    table th, table td {
+        padding: 8px 6px;
+        font-size: 0.8rem;
+    }
+
+    .badge-btn {
+        padding: 4px 6px;
+        font-size: 0.75rem;
+    }
 }

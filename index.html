@@ -2,8 +2,8 @@
 <html lang="mk">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Освоени поени</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Освоени Поени - Кујна</title>
     <link rel="stylesheet" href="style.css">
     <!-- Canvas Confetti за анимации -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
@@ -12,7 +12,7 @@
 
     <!-- Header / Навигација -->
     <header>
-        <h1>🍳 Освоени поени</h1>
+        <h1>🍳 Освоени Поени - Кујна</h1>
         <div id="user-info" class="hidden">
             <span id="user-display-name"></span>
             <button id="logout-btn" onclick="logout()">Одјава</button>
@@ -46,7 +46,7 @@
             
             <!-- Картичка за информации на вработениот -->
             <div class="card status-card">
-                <h3>Твој статус овој месец</h3>
+                <h3>Твој Статус Овој Месец</h3>
                 <div class="stats-grid">
                     <div class="stat-box plus">
                         <span class="stat-number" id="my-plus">0</span>
@@ -58,7 +58,7 @@
                     </div>
                     <div class="stat-box total">
                         <span class="stat-number" id="my-total">0</span>
-                        <span class="stat-label">Вкупно поени</span>
+                        <span class="stat-label">Вкупно Поени</span>
                     </div>
                 </div>
 
@@ -95,7 +95,8 @@
                             <div class="rule-column minus-rules">
                                 <h4>X Како се добива МИНУС:</h4>
                                 <ul>
-                                    <li>🚬 <strong>Паузи:</strong> Долги паузи во гужва</li>
+                                    <li>🍲 <strong>Грешка:</strong> Згрешена нарачка или подготовка</li>
+                                    <li>🚬 <strong>Паузи:</strong> Непланирани / долги паузи во гужва</li>
                                     <li>⏰ <strong>Задоцнување:</strong> Доцнење на смена без најава</li>
                                     <li>🗣️ <strong>Атмосфера:</strong> Неколегијалност и караници</li>
                                     <li>🧹 <strong>Несредена станица:</strong> Оставиш хаос по смената</li>
@@ -109,9 +110,9 @@
             <!-- Ранг Листа / Табела -->
             <div class="card">
                 <div class="card-header-flex">
-                    <h2>📊 Ранг-листа на вработени</h2>
+                    <h2>📊 Ранг-Листа на Вработени</h2>
                     <button onclick="resetAllData()" id="reset-btn" class="admin-only hidden reset-btn">
-                        🔄 Ресетирај поени
+                        🔄 Ресетирај Поени
                     </button>
                 </div>
                 <div class="table-container">
@@ -141,16 +142,16 @@
             
             <!-- Секција за Анонимни Идеи и Предлози -->
             <div class="card idea-card">
-                <h2>💡 Сподели анонимна идеја</h2>
+                <h2>💡 Сподели Анонимна Идеја</h2>
                 <p class="idea-subtitle">Имаш предлог? Напиши овде – целосно анонимно е!</p>
                 
                 <div class="form-group">
                     <label for="idea-category">Категорија:</label>
                     <select id="idea-category">
-                        <option value="⚙️ Организација">⚙️ Организација</option>
-                        <option value="🍴 Мени и рецепти">🍴 Мени и рецепти</option>
-                        <option value="🔪 Опрема и алати">🔪 Опрема и алати</option>
-                        <option value="🧼 Хигиена и среденост">🧼 Хигиена и среденост</option>
+                        <option value="⚙️ Организација и Процеси">⚙️ Организација и Процеси</option>
+                        <option value="🍴 Мени и Рецепти">🍴 Мени и Рецепти</option>
+                        <option value="🔪 Опрема и Алати">🔪 Опрема и Алати</option>
+                        <option value="🧼 Хигиена и Среденост">🧼 Хигиена и Среденост</option>
                         <option value="✨ Друго">✨ Друго</option>
                     </select>
                 </div>
@@ -164,7 +165,7 @@
 
                 <!-- Листа на предлози -->
                 <div class="ideas-list-container">
-                    <h3>💡 Споделени предлози:</h3>
+                    <h3>💡 Споделени Предлози:</h3>
                     <div id="ideas-list" class="ideas-list">
                         <!-- Идеите ќе се рендерираат тука -->
                     </div>
@@ -173,7 +174,7 @@
 
             <!-- Активности / Историја -->
             <div class="card">
-                <h2>📜 Последни активности</h2>
+                <h2>📜 Последни Активности</h2>
                 <ul id="activity-list" class="activity-list">
                     <!-- Логови за поени -->
                 </ul>
@@ -186,7 +187,7 @@
     <div id="point-modal" class="modal hidden">
         <div class="modal-content">
             <span class="close-btn" onclick="closePointModal()">&times;</span>
-            <h3 id="modal-title">Додели поен</h3>
+            <h3 id="modal-title">Додели Поен</h3>
             
             <div class="form-group">
                 <label>Тип на поен:</label>
@@ -204,11 +205,11 @@
             </div>
 
             <div class="form-group">
-                <label for="point-note">Забелешка / причина:</label>
+                <label for="point-note">Забелешка / Причина:</label>
                 <input type="text" id="point-note" placeholder="На пр. Одлична работа во гужва">
             </div>
 
-            <button onclick="submitPoint()">Сними поен</button>
+            <button onclick="submitPoint()">Сними Поен</button>
         </div>
     </div>
 
@@ -216,7 +217,7 @@
     <div id="vote-modal" class="modal hidden">
         <div class="modal-content">
             <span class="close-btn" onclick="closeVoteModal()">&times;</span>
-            <h3>Гласај за позитивен колега</h3>
+            <h3>Гласај за Позитивен Колега</h3>
             <p>Избери го колегата што најмногу ти помогна овој месец:</p>
             <div class="form-group">
                 <select id="vote-candidate-select">
